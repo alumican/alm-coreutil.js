@@ -1,4 +1,4 @@
-import {Type} from "../type/Type";
+import {Type} from "./Type";
 
 export namespace ObjUtil {
 
