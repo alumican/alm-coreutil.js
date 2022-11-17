@@ -1,0 +1,15 @@
+{
+    "out": "doc",
+    "entryPoints": [
+        "./src/index.ts"
+    ],
+    "exclude": "**/node_modules/**",
+    "tsconfig": "./tsconfig.doc.json",
+    "name": "alm-coreutil.js",
+    "readme": "none",
+    "includeVersion": true,
+    "excludeExternals": false,
+    "excludePrivate": false,
+    "excludeProtected": false,
+    "excludeInternal": false
+}
