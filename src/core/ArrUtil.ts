@@ -1,0 +1,140 @@
+export namespace ArrUtil {
+
+	/**
+	 * 等差数列を生成する
+	 * @param {number} count 要素数
+	 * @param {number} init 初期値
+	 * @param {number} step 等差
+	 * @returns {number[]} 出力配列
+	 */
+	export function sequence(count:number, init:number = 0, step:number = 1):number[] {
+		const result:number[] = new Array(count);
+		let v:number = init;
+		for (let i:number = 0; i < count; ++i) {
+			result[i] = v;
+			v += step;
+		}
+		return result;
+	}
+
+	/**
+	 * 重複を削除したリストを生成する
+	 * @param list 入力配列
+	 * @returns {T[]} 出力配列
+	 */
+	export function unique<T>(list:T[]):T[] {
+		return list.filter(function (x:T, i:number, self:T[]) {
+			return self.indexOf(x) === i;
+		});
+	}
+
+	/**
+	 * 重複のみを抽出したリストを生成する
+	 * @param list 入力配列
+	 * @param unique trueの場合は、重複したものの中を重複しないようにする
+	 * @returns {T[]} 出力配列
+	 */
+	export function duplicated<T>(list:T[], unique:boolean = false):T[] {
+
+		if (unique) {
+			return list.filter(function (x:T, i:number, self:T[]) {
+				return self.indexOf(x) !== self.lastIndexOf(x);
+			});
+		} else {
+			return list.filter(function (x:T, i:number, self:T[]) {
+				return (self.indexOf(x) === i) && (self.lastIndexOf(x) !== i);
+			});
+		}
+	}
+
+	/**
+	 * 2つの入力配列に対して総当たり戦をおこなう
+	 * @param {T[]} list1 入力配列1
+	 * @param {T[]} list2 入力配列2
+	 * @param {(count: number, index1: number, index2: number, element1: T, element2: T) => void} callback コールバック関数
+	 * @param callback.count コールバックの呼ばれた回数
+	 * @param callback.index1 入力配列1の現在のインデックス
+	 * @param callback.index2 入力配列2の現在のインデックス
+	 * @param callback.element1 入力配列1の現在の要素
+	 * @param callback.element2 入力配列2の現在の要素
+	 */
+	export function roundRobin<T>(list1:T[], list2:T[], callback:(count:number, index1:number, index2:number, element1:T, element2:T) => void):void {
+		let i:number, j:number, p:number = 1;
+		const m:number = list1.length;
+		const n:number = list2.length;
+		for (i = 0; i < m; ++i) {
+			for (j = i + 1; j < n; ++j) {
+				callback(p++, i, j, list1[i], list2[j]);
+			}
+		}
+	}
+
+	/**
+	 * リスト内の要素を入れ替える
+	 * @param list 入出力配列
+	 * @param index1 インデックス1
+	 * @param index2 インデックス2
+	 */
+	export function swap<T>(list:T[], index1:number, index2:number):void {
+		const tmp = list[index1];
+		list[index1] = list[index2];
+		list[index2] = tmp;
+	}
+
+	/**
+	 * リストをシャッフルする
+	 * by Fisher–Yatesアルゴリズム
+	 * @param list 入出力配列
+	 */
+	export function shuffle<T>(list:T[]):void {
+		for(let i = list.length - 1; i > 0; --i) {
+			swap(list, i, Math.floor(Math.random() * (i + 1)));
+		}
+	}
+
+	/**
+	 * リストを数値としてソートする
+	 * @param list 入出力配列
+	 * @param asc trueで昇順, falseで降順
+	 */
+	export function sort(list:number[], asc:boolean = true):void {
+		list.sort(asc ? function(a, b) { return a - b; } : function(a, b) { return b - a; });
+	}
+
+	/**
+	 * リストから1要素を選択して返す、元の配列は変更しない
+	 * @param list 配列
+	 * @returns {T} 選択された要素
+	 */
+	export function choose<T>(list:T[]):T {
+		return list[Math.floor(Math.random() * list.length)];
+	}
+
+	/**
+	 * 空要素を削除した配列を返す、元の配列は変更しない
+	 * Booleanのコンストラクタを使って判定しているため、0も削除される
+	 * @param list 入力配列
+	 * @returns {T[]} 出力配列
+	 */
+	export function clean<T>(list:T[]):T[] {
+		return list.filter(Boolean);
+	}
+
+
+	/**
+	 * 元の配列に対して、指定した関数を各要素に実行してfalseを返した要素を削除する
+	 * @param list 入力配列
+	 * @param f 各要素に実行する関数、falseを返すとその要素が削除される
+	 */
+	export function update<T>(list:T[], f:(item:T) => (void | boolean)):void {
+		let n = list.length;
+		for (let i = 0; i < n; ++i) {
+			const item = list[i];
+			if (f(item) === false) {
+				list.splice(i, 1);
+				--i;
+				--n;
+			}
+		}
+	}
+}
