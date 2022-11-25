@@ -1,4 +1,4 @@
-export namespace StrUtil {
+export module StrUtil {
 
 	/**
 	 * 時間を h:mm:ss の形式で取得する

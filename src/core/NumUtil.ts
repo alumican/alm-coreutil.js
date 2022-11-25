@@ -1,6 +1,6 @@
 import {EasingFunction} from "../math/Easing";
 
-export namespace NumUtil {
+export module NumUtil {
 
 	/**
 	 * 値を特定の範囲から範囲にマッピングする

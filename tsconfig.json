@@ -7,6 +7,7 @@
       "es2015",
       "dom"
     ],
+    "baseUrl": "./",
     "strict": false
   },
   "include": [

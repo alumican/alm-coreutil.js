@@ -1,4 +1,4 @@
-export namespace ArrUtil {
+export module ArrUtil {
 
 	/**
 	 * 等差数列を生成する

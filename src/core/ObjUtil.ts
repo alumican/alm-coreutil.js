@@ -1,6 +1,6 @@
 import {Type} from "./Type";
 
-export namespace ObjUtil {
+export module ObjUtil {
 
 	export function each(target:any, func:(key:string, value:any) => void):void {
 		if (!Type.isObject(target)) return;

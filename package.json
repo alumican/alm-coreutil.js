@@ -1,38 +1,45 @@
 {
   "name": "alm-coreutil.js",
-  "version": "1.0.0",
+  "version": "1.0.13",
   "description": "JavaScript core utility functions.",
   "author": "alumican",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "namespace": "alm",
-  "files": ["dist"],
-  "repository": { "type": "git", "url": "https://github.com/alumican/alm-coreutil.js" },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alumican/alm-coreutil.js"
+  },
+  "config": {
+    "namespace": "alm",
+    "port_example": 3000,
+    "port_doc": 3001
+  },
   "scripts": {
     "start": "npm-run-all build --parallel watch server",
     "build": "run-s clean *:build",
     "watch": "run-p *:watch",
     "server": "run-p *:server",
     "clean": "rimraf dist doc",
-    "uninstall": "(npm run clean) && (rimraf node_modules) && (rm package-lock.json)",
+    "uninstall": "(rimraf node_modules) && (rm package-lock.json)",
     "format": "prettier --parser typescript --write \"./src/**/*.ts\"",
-
     "main:build": "run-s main:build:*",
     "main:build:dev": "rollup --config rollup.config.js",
     "main:build:prod": "rollup --config rollup.config.js --environment BUILD:production",
     "main:build:dts": "tsc --project tsconfig.dts.json",
     "main:watch": "run-p main:watch:*",
     "main:watch:ts": "onchange -k \"./src/**/*.ts\" -- npm run main:build:dev",
-
     "example:server": "run-p example:server:*",
-    "example:server:run": "http-server ./ -c-1 -p 3000",
-    "example:server:open": "open http://localhost:3000",
-
+    "example:server:run": "http-server ./ -c-1 -p $npm_package_config_port_example",
+    "example:server:open": "open http://localhost:$npm_package_config_port_example",
     "doc:build": "typedoc --options typedoc.json",
     "doc:server": "run-p doc:server:*",
-    "doc:server:run": "http-server ./doc -c-1 -p 3001",
-    "doc:server:open": "open http://localhost:3001"
+    "doc:server:run": "http-server ./doc -c-1 -p $npm_package_config_port_doc",
+    "doc:server:open": "open http://localhost:$npm_package_config_port_doc",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.1.2",

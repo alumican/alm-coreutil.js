@@ -1,6 +1,6 @@
 export type EasingFunction = (t:number) => number;
 
-export namespace Easing {
+export module Easing {
 
 	/**
 	 * Linear

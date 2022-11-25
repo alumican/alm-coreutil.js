@@ -1,10 +1,10 @@
+# Project output
+# /doc/
+# /dist/
+
 # Project settings
 /.vscode/
 /.idea/
-
-# Project output
-/doc/
-/dist/
 
 # Backup
 **/*-old/

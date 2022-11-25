@@ -1,4 +1,4 @@
-export namespace Type {
+export module Type {
 
 	/**
 	 * 引数がbooleanかどうかを判断する
